@@ -142,10 +142,6 @@ export const getAreaDisplayName = (area: string): string => {
   };
   return areaNames[area] || area;
 };
-    fatehgunj: "Fatehgunj",
-  };
-  return areaNames[area] || area;
-};
 
 export const allAreas = [
   "vadodara",
