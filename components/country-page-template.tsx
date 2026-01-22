@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import type { CountryContent } from "@/lib/country-content";
+import { SEOFooter } from "./seo-footer";
 
 interface CountryPageTemplateProps {
   country: CountryContent;
@@ -628,24 +629,8 @@ export function CountryPageTemplate({ country }: CountryPageTemplateProps) {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 bg-gray-950 text-gray-400">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <GraduationCap className="h-6 w-6" />
-              <span>Study Abroad Vadodara</span>
-            </div>
-            <div className="flex gap-6 text-sm">
-              <Link href="/" className="hover:text-white">Home</Link>
-              <Link href="/#destinations" className="hover:text-white">Countries</Link>
-              <Link href="/#services" className="hover:text-white">Services</Link>
-              <Link href="/#contact" className="hover:text-white">Contact</Link>
-            </div>
-            <p className="text-sm">© {new Date().getFullYear()} Study Abroad Vadodara. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      {/* SEO Footer */}
+      <SEOFooter />
 
       {/* WhatsApp Float */}
       <a

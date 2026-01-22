@@ -3,7 +3,7 @@
 import { BusinessConfig, getAreaDisplayName } from "@/lib/business-config";
 import { businessKeywords } from "@/lib/keywords-config";
 import { BusinessNav } from "./business-nav";
-import { MegaFooter } from "./mega-footer";
+import { SEOFooter } from "./seo-footer";
 import { BusinessHeroSlider } from "./business-hero-slider";
 import { BusinessGallerySection } from "./business-gallery-section";
 import { BusinessWhatsAppFloat } from "./business-whatsapp-float";
@@ -607,7 +607,7 @@ export function BusinessPageTemplate({ business, area, content }: BusinessPageTe
         </div>
       </section>
 
-      <MegaFooter />
+      <SEOFooter />
       
       {/* WhatsApp Floating Button */}
       <BusinessWhatsAppFloat business={business} area={area} />

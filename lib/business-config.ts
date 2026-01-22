@@ -17,7 +17,7 @@ export interface BusinessConfig {
   areas: string[];
 }
 
-// Common areas - 21 areas total (Vadodara main + 20 localities)
+// 40 Vadodara Areas - Comprehensive coverage
 export const vadodaraAreas = [
   "vadodara",
   "alkapuri",
@@ -40,6 +40,26 @@ export const vadodaraAreas = [
   "tandalja",
   "makarpura",
   "fatehgunj",
+  // New 19 areas to make total 40
+  "race-course",
+  "ellora-park",
+  "new-sama-road",
+  "jetalpur-road",
+  "gorwa",
+  "productivity-road",
+  "nizampura",
+  "dandiya-bazaar",
+  "raopura",
+  "navapura",
+  "panigate",
+  "wadi",
+  "diwalipura",
+  "ajwa-road",
+  "bill",
+  "sevasi",
+  "bhayli",
+  "padra",
+  "karjan",
 ];
 
 export const businesses: BusinessConfig[] = [
@@ -99,6 +119,30 @@ export const getAreaDisplayName = (area: string): string => {
     tandalja: "Tandalja",
     makarpura: "Makarpura",
     fatehgunj: "Fatehgunj",
+    // New 19 areas
+    "race-course": "Race Course",
+    "ellora-park": "Ellora Park",
+    "new-sama-road": "New Sama Road",
+    "jetalpur-road": "Jetalpur Road",
+    gorwa: "Gorwa",
+    "productivity-road": "Productivity Road",
+    nizampura: "Nizampura",
+    "dandiya-bazaar": "Dandiya Bazaar",
+    raopura: "Raopura",
+    navapura: "Navapura",
+    panigate: "Panigate",
+    wadi: "Wadi",
+    diwalipura: "Diwalipura",
+    "ajwa-road": "Ajwa Road",
+    bill: "Bill",
+    sevasi: "Sevasi",
+    bhayli: "Bhayli",
+    padra: "Padra",
+    karjan: "Karjan",
+  };
+  return areaNames[area] || area;
+};
+    fatehgunj: "Fatehgunj",
   };
   return areaNames[area] || area;
 };
@@ -125,4 +169,24 @@ export const allAreas = [
   "tandalja",
   "makarpura",
   "fatehgunj",
+  // New 19 areas
+  "race-course",
+  "ellora-park",
+  "new-sama-road",
+  "jetalpur-road",
+  "gorwa",
+  "productivity-road",
+  "nizampura",
+  "dandiya-bazaar",
+  "raopura",
+  "navapura",
+  "panigate",
+  "wadi",
+  "diwalipura",
+  "ajwa-road",
+  "bill",
+  "sevasi",
+  "bhayli",
+  "padra",
+  "karjan",
 ];

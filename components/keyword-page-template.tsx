@@ -1,14 +1,14 @@
 "use client";
 
 import { BusinessConfig, getAreaDisplayName, vadodaraAreas } from "@/lib/business-config";
-import { businessKeywords, KeywordConfig } from "@/lib/keywords-config";
+import { businessKeywords, KeywordConfig, getKeywordContent, getDefaultKeywordContent, KeywordPageContent } from "@/lib/keywords-config";
 import { getRandomTestimonials, Testimonial } from "@/lib/testimonials";
 import { BusinessNav } from "./business-nav";
-import { MegaFooter } from "./mega-footer";
+import { SEOFooter } from "./seo-footer";
 import { BusinessHeroSlider } from "./business-hero-slider";
 import { BusinessGallerySection } from "./business-gallery-section";
 import { BusinessWhatsAppFloat } from "./business-whatsapp-float";
-import { Phone, Mail, MapPin, CheckCircle, Star, Users, Award, Globe, Tag, GraduationCap, Plane } from "lucide-react";
+import { Phone, Mail, MapPin, CheckCircle, Star, Users, Award, Globe, Tag, GraduationCap, Plane, TrendingUp, BookOpen, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
@@ -42,6 +42,9 @@ export function KeywordPageTemplate({ business, keyword, content }: KeywordPageT
   const gradientClass = business.colors.gradient;
   const keywords = businessKeywords[business.slug] || [];
   const keywordName = keyword.title;
+  
+  // Get keyword-specific rich content (45+ keyword mentions)
+  const richContent = getKeywordContent(keyword.slug) || getDefaultKeywordContent(keyword);
   
   // Get random testimonials for this page
   const testimonials = getRandomTestimonials(6);
@@ -113,14 +116,9 @@ export function KeywordPageTemplate({ business, keyword, content }: KeywordPageT
                 About {keyword.title}
               </h2>
               <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                <p className="whitespace-pre-line">{content.aboutContent.substring(0, 800)}...</p>
-                
-                <p className="mt-4">
-                  Looking for <strong>{keywordName}</strong>? We are the leading 
-                  study abroad consultancy in Vadodara with expertise in <strong>{keywordName}</strong>. 
-                  Our experienced counselors provide personalized guidance to help you achieve your 
-                  international education goals.
-                </p>
+                {richContent.aboutContent.split('\n\n').map((paragraph, idx) => (
+                  <p key={idx} className="mb-4">{paragraph}</p>
+                ))}
               </div>
             </div>
             <div className="order-1 md:order-2 relative h-80 md:h-96">
@@ -134,6 +132,50 @@ export function KeywordPageTemplate({ business, keyword, content }: KeywordPageT
           </div>
         </div>
       </section>
+
+      {/* Statistics Section */}
+      {richContent.statistics && richContent.statistics.length > 0 && (
+        <section className="py-12 bg-gradient-to-r from-emerald-600 to-teal-700 text-white">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center max-w-4xl mx-auto">
+              {richContent.statistics.map((stat, index) => (
+                <div key={index} className="p-4">
+                  <p className="text-4xl md:text-5xl font-bold mb-2">{stat.value}</p>
+                  <p className="text-emerald-100">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Detailed Content Sections */}
+      {richContent.detailedContent && richContent.detailedContent.length > 0 && (
+        <section className="py-16 md:py-20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+                <BookOpen className="inline-block w-8 h-8 mr-2 text-emerald-600" />
+                Complete Guide: {keywordName}
+              </h2>
+              <div className="prose prose-lg max-w-none">
+                {richContent.detailedContent.map((section, index) => (
+                  <div key={index} className="mb-8 p-6 bg-gray-50 rounded-xl">
+                    <div 
+                      className="text-gray-700 leading-relaxed"
+                      dangerouslySetInnerHTML={{ 
+                        __html: section
+                          .replace(/\*\*(.*?)\*\*/g, '<strong class="text-emerald-700">$1</strong>')
+                          .replace(/\n/g, '<br/>')
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Study Destinations */}
       <section className="py-16 md:py-20 bg-gray-50">
@@ -170,14 +212,14 @@ export function KeywordPageTemplate({ business, keyword, content }: KeywordPageT
       <section id="services" className="py-16 md:py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-            Our Services
+            Our Services for {keywordName}
           </h2>
           <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-            Comprehensive study abroad services for {keywordName.toLowerCase()}
+            Comprehensive services for {keywordName.toLowerCase()} in Vadodara
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {content.detailedServices.slice(0, 6).map((service, index) => (
+            {richContent.detailedServices.slice(0, 6).map((service, index) => (
               <div
                 key={index}
                 className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow border-l-4 border-emerald-500"
@@ -241,11 +283,11 @@ export function KeywordPageTemplate({ business, keyword, content }: KeywordPageT
               <h2 className="text-3xl md:text-4xl font-bold mb-8">
                 Why Choose Us for {keywordName}?
               </h2>
-              <div className="space-y-4">
-                {content.whyChooseUs.slice(0, 6).map((reason, index) => (
-                  <div key={index} className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
-                    <CheckCircle className="w-6 h-6 flex-shrink-0 mt-0.5 text-emerald-600" />
-                    <p className="text-gray-700">{reason}</p>
+              <div className="space-y-3">
+                {richContent.whyChooseUs.slice(0, 15).map((reason, index) => (
+                  <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg hover:bg-emerald-50 transition-colors">
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-emerald-600" />
+                    <p className="text-gray-700 text-sm">{reason}</p>
                   </div>
                 ))}
               </div>
@@ -341,6 +383,32 @@ export function KeywordPageTemplate({ business, keyword, content }: KeywordPageT
         </div>
       </section>
 
+      {/* Process Steps Section */}
+      {richContent.processSteps && richContent.processSteps.length > 0 && (
+        <section className="py-16 md:py-20 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+              <TrendingUp className="inline-block w-8 h-8 mr-2 text-emerald-600" />
+              Your {keywordName} Journey
+            </h2>
+            <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+              Step-by-step process for {keywordName.toLowerCase()} from Vadodara
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
+              {richContent.processSteps.map((step, index) => (
+                <div key={index} className="text-center p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                  <div className="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                    {index + 1}
+                  </div>
+                  <h4 className="font-bold text-emerald-700 mb-2">{step.title}</h4>
+                  <p className="text-gray-600 text-xs">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Gallery Section */}
       <BusinessGallerySection businessName={business.name} accentColor="emerald" />
 
@@ -348,11 +416,15 @@ export function KeywordPageTemplate({ business, keyword, content }: KeywordPageT
       <section className="py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+              <FileText className="inline-block w-8 h-8 mr-2 text-emerald-600" />
               Frequently Asked Questions
             </h2>
+            <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+              Common questions about {keywordName.toLowerCase()} answered
+            </p>
             <div className="space-y-4">
-              {content.faqItems.map((faq, index) => (
+              {richContent.faqItems.map((faq, index) => (
                 <details
                   key={index}
                   className="bg-white p-6 rounded-xl shadow-md group"
@@ -474,7 +546,7 @@ export function KeywordPageTemplate({ business, keyword, content }: KeywordPageT
         </div>
       </section>
 
-      <MegaFooter />
+      <SEOFooter />
       
       {/* WhatsApp Floating Button */}
       <BusinessWhatsAppFloat business={business} area="vadodara" />

@@ -52,15 +52,19 @@ export async function generateMetadata({
   const keywordConfig = !isArea && !countryContent ? getKeywordBySlug(business.slug, slug) : null;
   
   if (isArea) {
-    // Area page metadata - use unique content
+    // Area page metadata - Enhanced with keyword strategy
     const areaName = getAreaDisplayName(slug);
     const uniqueContent = getAreaUniqueContent(slug);
+    const enhancedTitle = `Study Abroad Consultants in ${areaName}, Vadodara | #1 Overseas Education`;
+    const enhancedDescription = `Best study abroad consultants in ${areaName}, Vadodara. ${uniqueContent.metaDescription} Free counseling for Canada, USA, UK, Australia student visas. Call +91 6353583148`;
+    
     return {
-      title: uniqueContent.metaTitle,
-      description: uniqueContent.metaDescription,
+      title: enhancedTitle,
+      description: enhancedDescription.slice(0, 160),
       keywords: [
         `Study Abroad Consultants in ${areaName}`,
-        `Overseas Education ${areaName} Vadodara`,
+        `Study Abroad Consultants ${areaName} Vadodara`,
+        `Overseas Education Consultants ${areaName}`,
         `Best Study Abroad Consultants ${areaName}`,
         `Canada Student Visa ${areaName}`,
         `USA Student Visa ${areaName}`,
@@ -71,13 +75,15 @@ export async function generateMetadata({
         `Study in Canada from ${areaName}`,
         `Study in USA from ${areaName}`,
         `Visa Consultants ${areaName} Vadodara`,
+        `Student Visa Consultants ${areaName}`,
+        `Scholarship Guidance ${areaName}`,
       ],
       alternates: {
         canonical: `${baseUrl}/${slug}`,
       },
       openGraph: {
-        title: uniqueContent.metaTitle,
-        description: uniqueContent.metaDescription,
+        title: enhancedTitle,
+        description: enhancedDescription.slice(0, 160),
         url: `${baseUrl}/${slug}`,
         type: "website",
         locale: "en_IN",
@@ -93,32 +99,49 @@ export async function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: uniqueContent.metaTitle,
-        description: uniqueContent.metaDescription,
+        title: enhancedTitle,
+        description: enhancedDescription.slice(0, 160),
         images: [`${baseUrl}/og-image.svg`],
+      },
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          'max-video-preview': -1,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+        },
       },
     };
   } else if (countryContent) {
-    // Country page metadata
+    // Country page metadata - Enhanced with city strategy
+    const enhancedTitle = `Study in ${countryContent.name} from Vadodara | ${countryContent.name} Student Visa Consultants`;
+    const enhancedDescription = `${countryContent.metaDescription} Best ${countryContent.name} education consultants in Vadodara, Gujarat. 98% visa success rate. Free counseling!`;
+    
     return {
-      title: countryContent.metaTitle,
-      description: countryContent.metaDescription,
+      title: enhancedTitle,
+      description: enhancedDescription.slice(0, 160),
       keywords: [
         `Study in ${countryContent.name} from Vadodara`,
         `${countryContent.name} Student Visa Vadodara`,
-        `${countryContent.name} Education Consultants`,
+        `${countryContent.name} Education Consultants Vadodara`,
         `Best ${countryContent.name} Study Consultants Vadodara`,
-        `${countryContent.name} Universities Admission`,
-        `${countryContent.name} Study Abroad`,
+        `${countryContent.name} Universities Admission Vadodara`,
+        `${countryContent.name} Study Abroad from Vadodara`,
+        `${countryContent.name} Student Visa Consultants Gujarat`,
         "Study Abroad Consultants Vadodara",
         "Overseas Education Vadodara",
+        "IELTS Coaching Vadodara",
+        "Scholarship Guidance Vadodara",
       ],
       alternates: {
         canonical: `${baseUrl}/${slug}`,
       },
       openGraph: {
-        title: countryContent.metaTitle,
-        description: countryContent.metaDescription,
+        title: enhancedTitle,
+        description: enhancedDescription.slice(0, 160),
         url: `${baseUrl}/${slug}`,
         type: "website",
         locale: "en_IN",
@@ -128,37 +151,62 @@ export async function generateMetadata({
             url: `${baseUrl}/og-image.svg`,
             width: 1200,
             height: 630,
-            alt: `${countryContent.heroTitle} - Study Abroad Vadodara`,
+            alt: `Study in ${countryContent.name} from Vadodara - Study Abroad Consultants`,
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
-        title: countryContent.metaTitle,
-        description: countryContent.metaDescription,
+        title: enhancedTitle,
+        description: enhancedDescription.slice(0, 160),
         images: [`${baseUrl}/og-image.svg`],
+      },
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          'max-video-preview': -1,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+        },
       },
     };
   } else if (keywordConfig) {
-    // Keyword page metadata
+    // Keyword page metadata - Enhanced with city/area strategy
+    const keywordTitle = keywordConfig.title.includes('Vadodara') 
+      ? keywordConfig.title 
+      : `${keywordConfig.title} in Vadodara`;
+    const metaTitle = `${keywordTitle} | #1 Study Abroad Consultants Gujarat`;
+    const enhancedDescription = `${keywordConfig.metaDescription} Best ${keywordConfig.title.toLowerCase()} services in Vadodara, Gujarat. 5000+ students placed. 98% visa success rate. Free counseling!`;
+    
     return {
-      title: `${keywordConfig.title} | Best Study Abroad Consultants Vadodara`,
-      description: keywordConfig.metaDescription,
+      title: metaTitle,
+      description: enhancedDescription.slice(0, 160),
       keywords: [
         keywordConfig.title,
         `${keywordConfig.title} Vadodara`,
+        `${keywordConfig.title} Gujarat`,
         `Best ${keywordConfig.title}`,
+        `${keywordConfig.title} near me`,
         "Study Abroad Consultants Vadodara",
-        "Overseas Education Vadodara",
+        "Overseas Education Consultants Vadodara",
+        "Study Abroad Vadodara",
         "Canada Student Visa Vadodara",
         "USA Student Visa Vadodara",
+        "UK Student Visa Vadodara",
+        "Australia Student Visa Vadodara",
+        "IELTS Coaching Vadodara",
+        "GRE Coaching Vadodara",
+        "Scholarship Guidance Vadodara",
       ],
       alternates: {
         canonical: `${baseUrl}/${keywordConfig.slug}`,
       },
       openGraph: {
-        title: `${keywordConfig.title} | Study Abroad Vadodara`,
-        description: keywordConfig.metaDescription,
+        title: metaTitle,
+        description: enhancedDescription.slice(0, 160),
         url: `${baseUrl}/${keywordConfig.slug}`,
         type: "website",
         locale: "en_IN",
@@ -168,15 +216,26 @@ export async function generateMetadata({
             url: `${baseUrl}/og-image.svg`,
             width: 1200,
             height: 630,
-            alt: keywordConfig.title,
+            alt: `${keywordTitle} - Study Abroad Consultants Vadodara`,
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
-        title: keywordConfig.title,
-        description: keywordConfig.metaDescription,
+        title: metaTitle,
+        description: enhancedDescription.slice(0, 160),
         images: [`${baseUrl}/og-image.svg`],
+      },
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          'max-video-preview': -1,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+        },
       },
     };
   }
