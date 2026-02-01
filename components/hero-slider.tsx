@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Sparkles, MessageCircle } from "lucide-react"
 import { addLead } from "@/lib/leads"
 
@@ -13,21 +13,24 @@ const slides = [
     title: "Your Gateway to Global Education",
     subtitle: "Vadodara's Trusted Study Abroad Consultants",
     description: "Helping students from Vadodara achieve their dreams of studying in top universities worldwide",
-    image: "/Slider1.png",
+    image: "/images/hero/hero1.jpg",
+    alt: "Study Abroad Consultants Vadodara - Students celebrating university admission success",
   },
   {
     id: 2,
     title: "Expert Visa Assistance",
     subtitle: "Canada, USA, UK, Australia & More",
     description: "Complete support for student visa applications with high success rates for Vadodara students",
-    image: "/Slider2.png",
+    image: "/images/hero/hero2.jpg",
+    alt: "Canada USA UK Australia Student Visa Consultants in Vadodara Gujarat",
   },
   {
     id: 3,
     title: "IELTS & Test Prep Coaching",
     subtitle: "Score High, Aim Higher",
     description: "Expert coaching for IELTS, TOEFL, PTE, and GRE to help you meet your dream university requirements",
-    image: "/Slider3.png",
+    image: "/images/hero/hero3.jpg",
+    alt: "Best IELTS TOEFL PTE GRE Coaching Classes in Vadodara for Study Abroad",
   },
 ]
 
@@ -94,12 +97,18 @@ _Sent via Study Abroad Vadodara Website_
           className={`absolute inset-0 transition-opacity duration-1000 ${
             index === currentSlide ? "opacity-100" : "opacity-0"
           }`}
-          style={{
-            backgroundImage: `url(${slide.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
         >
+          {/* Optimized Next.js Image with lazy loading and SEO alt tags */}
+          <Image
+            src={slide.image}
+            alt={slide.alt}
+            fill
+            sizes="100vw"
+            quality={85}
+            priority={index === 0}
+            loading={index === 0 ? "eager" : "lazy"}
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/50 to-primary/30 z-10" />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/30 via-slate-800/20 to-slate-900/30 z-0" />
           <div className="absolute inset-0 z-20 flex items-center px-3 sm:px-4 md:px-0">

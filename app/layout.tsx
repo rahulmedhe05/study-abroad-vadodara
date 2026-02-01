@@ -41,6 +41,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://studyabroadvadodara.in"),
   alternates: {
     canonical: "https://studyabroadvadodara.in",
+    languages: {
+      'en-IN': 'https://studyabroadvadodara.in',
+      'en-US': 'https://studyabroadvadodara.in',
+      'en-GB': 'https://studyabroadvadodara.in',
+      'x-default': 'https://studyabroadvadodara.in',
+    },
   },
   openGraph: {
     title: "Study Abroad Consultants in Vadodara | #1 Overseas Education Experts",

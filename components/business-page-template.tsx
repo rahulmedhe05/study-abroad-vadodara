@@ -7,6 +7,7 @@ import { SEOFooter } from "./seo-footer";
 import { BusinessHeroSlider } from "./business-hero-slider";
 import { BusinessGallerySection } from "./business-gallery-section";
 import { BusinessWhatsAppFloat } from "./business-whatsapp-float";
+import { VideoSection } from "./video-section";
 import { Phone, Mail, MapPin, CheckCircle, Star, Users, Award, Clock, Tag, GraduationCap, Globe, Plane } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -404,6 +405,9 @@ export function BusinessPageTemplate({ business, area, content }: BusinessPageTe
 
       {/* Gallery Section */}
       <BusinessGallerySection businessName={business.name} accentColor="emerald" />
+
+      {/* Video Guides Section */}
+      <VideoSection />
 
       {/* Related Services / Keywords */}
       <section className="py-16 md:py-20">

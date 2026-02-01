@@ -187,6 +187,269 @@ export function generateServiceSchema(area: string) {
   };
 }
 
+// Generate Course Schema for SEO
+export function generateCourseSchema() {
+  return {
+    "@type": "ItemList",
+    itemListElement: [
+      {
+        "@type": "Course",
+        "@id": `${baseUrl}/#course-ielts`,
+        name: "IELTS Preparation Course",
+        description: "Comprehensive IELTS coaching in Vadodara with expert trainers. Covers Reading, Writing, Listening, and Speaking modules with guaranteed band improvement.",
+        provider: {
+          "@type": "Organization",
+          name: "Study Abroad Consultants Vadodara",
+          sameAs: baseUrl,
+        },
+        hasCourseInstance: {
+          "@type": "CourseInstance",
+          courseMode: "onsite",
+          courseWorkload: "PT40H",
+          instructor: {
+            "@type": "Person",
+            name: "IELTS Expert Team",
+          },
+        },
+        offers: {
+          "@type": "Offer",
+          category: "IELTS Coaching",
+          priceRange: "₹₹",
+        },
+      },
+      {
+        "@type": "Course",
+        "@id": `${baseUrl}/#course-pte`,
+        name: "PTE Academic Preparation",
+        description: "Expert PTE coaching in Vadodara. Quick score improvement for study abroad requirements with computer-based practice tests.",
+        provider: {
+          "@type": "Organization",
+          name: "Study Abroad Consultants Vadodara",
+          sameAs: baseUrl,
+        },
+      },
+      {
+        "@type": "Course",
+        "@id": `${baseUrl}/#course-gre`,
+        name: "GRE Preparation Course",
+        description: "Top GRE coaching in Vadodara for MS in USA. Score 320+ with expert faculty and comprehensive preparation.",
+        provider: {
+          "@type": "Organization",
+          name: "Study Abroad Consultants Vadodara",
+          sameAs: baseUrl,
+        },
+      },
+    ],
+  };
+}
+
+// Generate VideoObject Schema
+export function generateVideoSchema() {
+  return [
+    {
+      "@type": "VideoObject",
+      name: "How to Get Canada Student Visa in 2026 - Complete Guide",
+      description: "Step-by-step guide to Canada student visa application process from Vadodara's expert consultants.",
+      thumbnailUrl: `${baseUrl}/images/videos/canada-visa-thumbnail.jpg`,
+      uploadDate: "2026-01-15",
+      duration: "PT12M45S",
+      publisher: {
+        "@type": "Organization",
+        name: "Study Abroad Consultants Vadodara",
+        logo: {
+          "@type": "ImageObject",
+          url: `${baseUrl}/logo.svg`,
+        },
+      },
+    },
+    {
+      "@type": "VideoObject",
+      name: "IELTS Preparation Tips - Score Band 7+ in 30 Days",
+      description: "Expert IELTS preparation strategies from Vadodara's best coaching center.",
+      thumbnailUrl: `${baseUrl}/images/videos/ielts-tips-thumbnail.jpg`,
+      uploadDate: "2026-01-10",
+      duration: "PT15M20S",
+      publisher: {
+        "@type": "Organization",
+        name: "Study Abroad Consultants Vadodara",
+      },
+    },
+  ];
+}
+
+// Generate HowTo Schema for guides
+export function generateHowToSchema(topic: string) {
+  const howToGuides: Record<string, object> = {
+    "canada-visa": {
+      "@type": "HowTo",
+      name: "How to Apply for Canada Student Visa from India",
+      description: "Step-by-step guide to applying for Canada student visa (study permit) from India in 2026.",
+      totalTime: "P60D",
+      estimatedCost: {
+        "@type": "MonetaryAmount",
+        currency: "INR",
+        value: "150000",
+      },
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Get Letter of Acceptance",
+          text: "Apply to a Designated Learning Institution (DLI) in Canada and receive your Letter of Acceptance.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Pay First Year Tuition",
+          text: "Pay your first year tuition fees to the university (required for SDS stream).",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Purchase GIC",
+          text: "Purchase a Guaranteed Investment Certificate (GIC) of CAD 20,635 from an approved bank.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Complete Medical Examination",
+          text: "Visit an approved panel physician and complete your medical examination.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 5,
+          name: "Submit Online Application",
+          text: "Create an account on IRCC portal and submit your study permit application with all documents.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 6,
+          name: "Give Biometrics",
+          text: "Schedule and complete biometrics at the nearest VAC (Visa Application Centre).",
+        },
+        {
+          "@type": "HowToStep",
+          position: 7,
+          name: "Submit Passport",
+          text: "After approval, submit your passport for visa stamping.",
+        },
+      ],
+    },
+    "ielts-prep": {
+      "@type": "HowTo",
+      name: "How to Prepare for IELTS and Score Band 7+",
+      description: "Comprehensive guide to prepare for IELTS exam and achieve Band 7 or higher.",
+      totalTime: "P60D",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Understand the Test Format",
+          text: "Familiarize yourself with all four modules: Listening, Reading, Writing, and Speaking.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Take a Diagnostic Test",
+          text: "Take a full practice test to identify your current level and weak areas.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Build Vocabulary",
+          text: "Learn 20 new words daily with their usage in sentences.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Practice Each Module",
+          text: "Dedicate specific time for each module - Reading, Writing, Listening, and Speaking practice.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 5,
+          name: "Take Mock Tests",
+          text: "Complete full-length mock tests under exam conditions weekly.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 6,
+          name: "Review and Improve",
+          text: "Analyze your mistakes and focus on weak areas for improvement.",
+        },
+      ],
+    },
+  };
+
+  return howToGuides[topic] || null;
+}
+
+// Generate Q&A Schema
+export function generateQASchema(questions: { question: string; answer: string }[]) {
+  return {
+    "@type": "QAPage",
+    mainEntity: questions.map((q) => ({
+      "@type": "Question",
+      name: q.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: q.answer,
+      },
+    })),
+  };
+}
+
+// Generate Event Schema for webinars/seminars
+export function generateEventSchema(event: {
+  name: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  location: string;
+  isOnline: boolean;
+}) {
+  return {
+    "@type": "EducationEvent",
+    name: event.name,
+    description: event.description,
+    startDate: event.startDate,
+    endDate: event.endDate,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: event.isOnline
+      ? "https://schema.org/OnlineEventAttendanceMode"
+      : "https://schema.org/OfflineEventAttendanceMode",
+    location: event.isOnline
+      ? {
+          "@type": "VirtualLocation",
+          url: `${baseUrl}/webinar`,
+        }
+      : {
+          "@type": "Place",
+          name: event.location,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "201, Shree Complex, RC Dutt Road, Alkapuri",
+            addressLocality: "Vadodara",
+            addressRegion: "Gujarat",
+            postalCode: "390007",
+            addressCountry: "IN",
+          },
+        },
+    organizer: {
+      "@type": "Organization",
+      name: "Study Abroad Consultants Vadodara",
+      url: baseUrl,
+    },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "INR",
+      availability: "https://schema.org/InStock",
+      url: baseUrl,
+    },
+  };
+}
+
 // Generate complete page schema
 export function generatePageSchema(
   area: string,
